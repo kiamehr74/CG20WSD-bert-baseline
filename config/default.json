@@ -1,0 +1,37 @@
+{
+"PATH": {
+        "tokenizer_path": "/content/bert_large_tokenizer",
+        "pre_trained_path": "/content/bert_large_pre_trained",
+        "data_path": "/content/CoarseWSD-20"
+        },
+
+"HYPER_PARAM" : {
+                "learning_rate": 2e-5,
+                "batch_size": 8,
+                "epochs": 8,
+                "sequence_length": 128
+                },
+
+"TARGET_DATASETS" : [
+                    "seal",
+                    "bow",
+                    "club",
+                    "digit",
+                    "bass",
+                    "crane",
+                    "square",
+                    "hood",
+                    "trunk",
+                    "yard",
+                    "java",
+                    "pitcher",
+                    "apple",
+                    "bank",
+                    "spring",
+                    "deck",
+                    "arm",
+                    "pound",
+                    "chair",
+                    "mole"
+                    ]
+}
