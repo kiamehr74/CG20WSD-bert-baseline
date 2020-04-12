@@ -6,7 +6,9 @@ import argparse
 import torch.nn as nn
 import torch.optim as optim
 from transformers import BertTokenizer
-
+from utils.metrics import accuracy_from_logits
+import numpy as np
+import torch
 
 parser = argparse.ArgumentParser(description='Nearest Neighbors Evaluation (using precomputed instance vecs).',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -20,20 +22,6 @@ with open(parser.config) as json_file:
     config = json.load(json_file)
 
 target_datasets = ['seal']
-
-
-
-
-import numpy as np
-def get_accuracy_from_logits(logits, labels):
-  np_logits = logits.detach().cpu().numpy()
-  np_labels = labels.detach().cpu().numpy()
-  
-  total = len(labels)
-  correct = np.sum ((np.argmax(np_logits, axis=1)==np_labels).astype('int'))
-  return float(correct) / total
-  
-  
 
 
 # for target_dataset in config["TARGET_DATASETS"]:
@@ -58,6 +46,8 @@ for target_dataset in target_datasets:
     criterion = nn.CrossEntropyLoss()
 
     for ep in range(config["HYPER_PARAM"]["epochs"]):
+        print ("-------------- EPOCH: ", ep, " --------------")
+        print ("")
         for it, (seq, attn_masks, target_mask, labels) in enumerate(train_data):
             # Clear gradients
             opti.zero_grad()
@@ -75,7 +65,26 @@ for target_dataset in target_datasets:
             # Optimization step
             opti.step()
 
-            if (it + 1) % 5 == 0:
-                acc = get_accuracy_from_logits(logits, labels)
+            if (it + 1) % 50 == 0:
+                acc = accuracy_from_logits(logits, labels)
                 print("Iteration {} of epoch {} complete. Loss : {} Accuracy : {}".format(it + 1, ep + 1, loss.item(),
                                                                                           acc))
+
+    # EVALUATION
+    model.eval()
+    predictions, true_labels = [], []
+    for it, (seq, attn_masks, target_mask, labels) in enumerate(test_data):
+
+        seq, attn_masks, target_mask, labels = seq.cuda(0), attn_masks.cuda(0), target_mask.cuda(0), labels.cuda(0)
+
+        with torch.no_grad():
+            logits = model(seq, attn_masks, target_mask)
+        logits = list(np.argmax(logits.detach().cpu().numpy(), axis=1))
+        label_ids = list(labels.to('cpu').numpy())
+
+        predictions += logits
+        true_labels += label_ids
+
+    with open (config["PATH"]["output_path"]+"/"+target_dataset+".txt", "w") as out:
+        for p in predictions:
+            out.write(str(p)+"\n")

@@ -2,7 +2,8 @@
 "PATH": {
         "tokenizer_path": "/content/bert_large_tokenizer",
         "pre_trained_path": "/content/bert_large_pre_trained",
-        "data_path": "/content/CoarseWSD-20"
+        "data_path": "/content/CoarseWSD-20",
+        "output_path": "/content/output"
         },
 
 "HYPER_PARAM" : {
