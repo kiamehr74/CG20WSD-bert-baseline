@@ -15,6 +15,7 @@ parser = argparse.ArgumentParser(description='Nearest Neighbors Evaluation (usin
 parser.add_argument('-model', default='bert-base-uncased', help='Name of the pre-trained model',
                     choices=['bert-base-uncased', 'bert-large-uncased'])
 parser.add_argument('-config', default='./config/default.json', help='path to the config file')
+parser.add_argument('-save_model', action='store_true', help='boolean indicating whether the mmodels are saved or not')
 
 parser = parser.parse_args()
 
@@ -69,6 +70,9 @@ for target_dataset in config["TARGET_DATASETS"]:
                 acc = accuracy_from_logits(logits, labels)
                 print("Iteration {} of epoch {} complete. Loss : {} Accuracy : {}".format(it + 1, ep + 1, loss.item(),
                                                                                           acc))
+    #SAVING MODEL
+    if parser.save_model:
+        torch.save(model.state_dict(), config["PATH"]["model_save_path"]+"/"+target_dataset+".pt")
 
     # EVALUATION
     model.eval()

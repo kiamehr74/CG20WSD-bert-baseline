@@ -3,7 +3,8 @@
         "tokenizer_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/bert_tokenizer",
         "pre_trained_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/bert_model",
         "data_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/CoarseWSD-20",
-        "output_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/output"
+        "output_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/output",
+        "model_save_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/trained_models"
         },
 
 "HYPER_PARAM" : {
