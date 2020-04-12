@@ -21,11 +21,11 @@ parser = parser.parse_args()
 with open(parser.config) as json_file:
     config = json.load(json_file)
 
-target_datasets = ['seal']
 
+# target_datasets = ['seal']
+# for target_dataset in target_datasets:
 
-# for target_dataset in config["TARGET_DATASETS"]:
-for target_dataset in target_datasets:
+for target_dataset in config["TARGET_DATASETS"]:
     parsed_data = parse_raw_data(config["PATH"]["data_path"]+"/"+target_dataset)
 
     if parser.model in ["bert-large-uncased", "bert-base-uncased"]:
