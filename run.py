@@ -12,9 +12,9 @@ import torch
 
 parser = argparse.ArgumentParser(description='Nearest Neighbors Evaluation (using precomputed instance vecs).',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-model', default='bert-base-uncased', help='Name of the pre-trained model', required=True,
+parser.add_argument('-model', default='bert-base-uncased', help='Name of the pre-trained model',
                     choices=['bert-base-uncased', 'bert-large-uncased'])
-parser.add_argument('-config', default='./config/default.json', help='path to the config file', required=True)
+parser.add_argument('-config', default='./config/default.json', help='path to the config file')
 
 parser = parser.parse_args()
 
