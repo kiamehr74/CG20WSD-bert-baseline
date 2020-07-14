@@ -2,10 +2,10 @@
 "PATH": {
         "tokenizer_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/bert_tokenizer",
         "pre_trained_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/bert_model",
-        "data_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/CoarseWSD-20",
-        "output_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/output",
-        "model_save_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/trained_models"
-        },
+        "data_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/CoarseWSD-20_dataset",
+        "output_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/output/",
+	"model_save_path": "/home/kiamehr/bert-rezaee/CG20WSD-bert-baseline/trained_models/"
+	},
 
 "HYPER_PARAM" : {
                 "learning_rate": 2e-5,

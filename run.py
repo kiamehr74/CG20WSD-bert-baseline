@@ -15,6 +15,7 @@ parser = argparse.ArgumentParser(description='Nearest Neighbors Evaluation (usin
 parser.add_argument('-model', default='bert-base-uncased', help='Name of the pre-trained model',
                     choices=['bert-base-uncased', 'bert-large-uncased'])
 parser.add_argument('-config', default='./config/default.json', help='path to the config file')
+
 parser.add_argument('-save_model', action='store_true', help='boolean indicating whether the mmodels are saved or not')
 
 parser = parser.parse_args()
@@ -23,10 +24,10 @@ with open(parser.config) as json_file:
     config = json.load(json_file)
 
 
-# target_datasets = ['seal']
-# for target_dataset in target_datasets:
 
 for target_dataset in config["TARGET_DATASETS"]:
+    print("")
+    print (target_dataset)
     parsed_data = parse_raw_data(config["PATH"]["data_path"]+"/"+target_dataset)
 
     if parser.model in ["bert-large-uncased", "bert-base-uncased"]:
@@ -71,6 +72,7 @@ for target_dataset in config["TARGET_DATASETS"]:
                 print("Iteration {} of epoch {} complete. Loss : {} Accuracy : {}".format(it + 1, ep + 1, loss.item(),
                                                                                           acc))
     #SAVING MODEL
+    print ("saving model")
     if parser.save_model:
         torch.save(model.state_dict(), config["PATH"]["model_save_path"]+"/"+target_dataset+".pt")
 
